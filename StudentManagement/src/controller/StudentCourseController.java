@@ -20,10 +20,10 @@ import utils.Validation;
  */
 public class StudentCourseController {
 
-	private StudentManager studentManager;
-	private CourseManager courseManager;
-	private StudentInputer studentInputer;
-	private CourseInputer courseInputer;
+	private final StudentManager studentManager;
+	private final CourseManager courseManager;
+	private final StudentInputer studentInputer;
+	private final CourseInputer courseInputer;
 
 	public StudentCourseController() {
 		studentManager = new StudentManager();
@@ -95,42 +95,46 @@ public class StudentCourseController {
 	}
 
 	private void updateStudent(Student student) throws Exception {
-		if (Validation.getChoice("Update student's name? [Y/N]: ", "y", "n")) {
-			student.setName(Validation.getAlphabetic("Enter new name: "));
-		}
-
-		if (Validation.getChoice("Update student's courses? [Y/N]", "y", "n")) {
-			while (true) {
-				int choice = Validation.getInteger("[1] Add course ; "
-					+ "[2] Update Course ; "
-					+ "[3] Remove Course\n"
-					+ "Your choice: ", 1, 3);
-				switch (choice) {
-					case 1:
-						addCourse(student);
-						break;
-					case 2:
-
-						break;
-					case 3:
-
-						break;
-					default:
-						throw new AssertionError();
-				}
+		while (true) {
+			int choice = Validation.getInteger("1. Change name"
+				+ "[2] Add course ; "
+				+ "[3] Update Course ; "
+				+ "[4] Remove Course\n"
+				+ "Your choice: ", 1, 4);
+			switch (choice) {
+				case 1:
+					updateName(student);
+					break;
+				case 2:
+					addCourse(student);
+					break;
+				case 3:
+					removeCourse(student);
+					break;
+				case 4:
+					updateCourse(student);
+					break;
 			}
 		}
 	}
 
-	private void addCourse(Student student) {
-		Course course;// = new Course();
-		do {
-			course = courseInputer.inputCourse();
-		} while (courseManager.contains(course));
+	private void updateName(Student student) {
+		student.setName(Validation.getAlphabetic("Enter new name: "));
+	}
+
+	private void addCourse(Student student) throws Exception {
+		Course course = courseInputer.inputCourse();
+		if (courseManager.contains(course)) {
+			throw new Exception("Course already exists!!!");
+		}
 		course.setStudent(student);
 	}
 
 	private void removeCourse(Student student) {
 //		Course course = in
+	}
+
+	private void updateCourse(Student student) {
+		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 	}
 }

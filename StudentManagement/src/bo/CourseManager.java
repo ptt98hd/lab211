@@ -56,11 +56,18 @@ public class CourseManager {
 		return removed;
 	}
 
+	public boolean remove(Course course) throws Exception {
+		if (!contains(course)) {
+			throw new Exception("Course does not exits!!!");
+		}
+		return courses.remove(course);
+	}
+
 	public Course update(int index, Course newCourse) {
 		return courses.set(index, newCourse);
 	}
 
-//	SEARCH & SORT
+//	SEARCH
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public ArrayList<Course> searchByStudentName(String name) {
 		ArrayList<Course> results = new ArrayList<>();
@@ -70,11 +77,6 @@ public class CourseManager {
 			}
 		}
 		return results;
-	}
-
-	private ArrayList<Course> sortByStudentName(ArrayList<Course> courses) {
-		courses.sort((o1, o2) -> o1.getStudent().getName().compareToIgnoreCase(o2.getStudent().getName()));
-		return courses;
 	}
 
 //	OTHERS
