@@ -16,7 +16,7 @@ import utils.Validation;
  */
 public class Main {
 
-	private static String menu = "\nWELCOME TO STUDENT MANAGEMENT\n"
+	private static final String MENU = "\nWELCOME TO STUDENT MANAGEMENT\n"
 		+ "[1] Create\n"
 		+ "[2] Find and Sort\n"
 		+ "[3] Update/Delete\n"
@@ -28,7 +28,7 @@ public class Main {
 		StudentCourseController studentCourseController = new StudentCourseController();
 		while (true) {
 			try {
-				int choice = Validation.getInteger(menu, 0, 5);
+				int choice = Validation.getInteger(MENU, 0, 5);
 				switch (choice) {
 					case 0:
 						System.out.println(getData(studentCourseController.getAllCourses()));

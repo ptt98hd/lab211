@@ -133,7 +133,7 @@ public class StudentCourseController {
 			mess += i + " | " + courses.get(i) + "\n";
 		}
 		mess += "Your choice: ";
-		Course course = courses.get(Validation.getInteger(mess, 1, courses.size()) - 1);
+		Course course = courses.get(Validation.getInteger(mess, 0, courses.size() - 1));
 		courseManager.remove(course);
 	}
 
@@ -144,7 +144,7 @@ public class StudentCourseController {
 			mess += i + " | " + courses.get(i) + "\n";
 		}
 		mess += "Your choice: ";
-		Course oldCourse = courses.get(Validation.getInteger(mess, 1, courses.size()) - 1);
+		Course oldCourse = courses.get(Validation.getInteger(mess, 0, courses.size()) - 1);
 		Course newCourse = courseInputer.inputCourse();
 		courseManager.update(oldCourse, newCourse);
 	}

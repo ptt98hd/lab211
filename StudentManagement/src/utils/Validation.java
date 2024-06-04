@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class Validation {
 
-	private static Scanner scanner = new Scanner(System.in);
+	private static final Scanner scanner = new Scanner(System.in);
 
 	private static String getString(String message, String error, String regex) {
 		do {
