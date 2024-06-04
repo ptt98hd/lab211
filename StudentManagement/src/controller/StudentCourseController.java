@@ -95,26 +95,24 @@ public class StudentCourseController {
 	}
 
 	private void updateStudent(Student student) throws Exception {
-		while (true) {
-			int choice = Validation.getInteger("1. Change name"
-				+ "[2] Add course ; "
-				+ "[3] Update Course ; "
-				+ "[4] Remove Course\n"
-				+ "Your choice: ", 1, 4);
-			switch (choice) {
-				case 1:
-					updateName(student);
-					break;
-				case 2:
-					addCourse(student);
-					break;
-				case 3:
-					removeCourse(student);
-					break;
-				case 4:
-					updateCourse(student);
-					break;
-			}
+		int choice = Validation.getInteger("1. Change name\n"
+			+ "[2] Add course\n"
+			+ "[3] Update Course\n"
+			+ "[4] Remove Course\n"
+			+ "Your choice: ", 1, 4);
+		switch (choice) {
+			case 1:
+				updateName(student);
+				break;
+			case 2:
+				addCourse(student);
+				break;
+			case 3:
+				removeCourse(student);
+				break;
+			case 4:
+				updateCourse(student);
+				break;
 		}
 	}
 
@@ -123,22 +121,30 @@ public class StudentCourseController {
 	}
 
 	private void addCourse(Student student) throws Exception {
-		Course course = courseInputer.inputCourse();
-		if (courseManager.contains(course)) {
-			throw new Exception("Course already exists!!!");
-		}
-		course.setStudent(student);
+		Course newCourse = courseInputer.inputCourse();
+		newCourse.setStudent(student);
+		courseManager.add(newCourse);
 	}
 
 	private void removeCourse(Student student) throws Exception {
 		ArrayList<Course> courses = courseManager.getCourses(student);
-		Course course = courses.get(Validation.getInteger(courses.toString(), 1, courses.size()) - 1);
+		String mess = "";
+		for (int i = 0; i < courses.size(); i++) {
+			mess += i + " | " + courses.get(i) + "\n";
+		}
+		mess += "Your choice: ";
+		Course course = courses.get(Validation.getInteger(mess, 1, courses.size()) - 1);
 		courseManager.remove(course);
 	}
 
 	private void updateCourse(Student student) throws Exception {
 		ArrayList<Course> courses = courseManager.getCourses(student);
-		Course oldCourse = courses.get(Validation.getInteger(courses.toString(), 1, courses.size()) - 1);
+		String mess = "";
+		for (int i = 0; i < courses.size(); i++) {
+			mess += i + " | " + courses.get(i) + "\n";
+		}
+		mess += "Your choice: ";
+		Course oldCourse = courses.get(Validation.getInteger(mess, 1, courses.size()) - 1);
 		Course newCourse = courseInputer.inputCourse();
 		courseManager.update(oldCourse, newCourse);
 	}
