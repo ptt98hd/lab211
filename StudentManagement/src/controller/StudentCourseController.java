@@ -130,11 +130,16 @@ public class StudentCourseController {
 		course.setStudent(student);
 	}
 
-	private void removeCourse(Student student) {
-//		Course course = in
+	private void removeCourse(Student student) throws Exception {
+		ArrayList<Course> courses = courseManager.getCourses(student);
+		Course course = courses.get(Validation.getInteger(courses.toString(), 1, courses.size()) - 1);
+		courseManager.remove(course);
 	}
 
-	private void updateCourse(Student student) {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	private void updateCourse(Student student) throws Exception {
+		ArrayList<Course> courses = courseManager.getCourses(student);
+		Course oldCourse = courses.get(Validation.getInteger(courses.toString(), 1, courses.size()) - 1);
+		Course newCourse = courseInputer.inputCourse();
+		courseManager.update(oldCourse, newCourse);
 	}
 }

@@ -32,6 +32,16 @@ public class CourseManager {
 		return courses;
 	}
 
+	public ArrayList<Course> getCourses(Student student) {
+		ArrayList<Course> results = new ArrayList<>();
+		for (Course course : courses) {
+			if (course.getStudent().equals(student)) {
+				results.add(course);
+			}
+		}
+		return results;
+	}
+
 	public void setCourses(ArrayList<Course> courses) {
 		this.courses = courses;
 	}
@@ -63,7 +73,11 @@ public class CourseManager {
 		return courses.remove(course);
 	}
 
-	public Course update(int index, Course newCourse) {
+	public Course update(Course oldCourse, Course newCourse) throws Exception {
+		int index = getIndex(oldCourse);
+		if (index == -1) {
+			throw new Exception("Invalid course!!!");
+		}
 		return courses.set(index, newCourse);
 	}
 
