@@ -91,11 +91,11 @@ public class StudentCourseController {
 
 	private void deleteStudent(Student student) {
 		courseManager.remove(student);
-		studentManager.remove(student);
+//		studentManager.remove(student);
 	}
 
 	private void updateStudent(Student student) throws Exception {
-		int choice = Validation.getInteger("1. Change name\n"
+		int choice = Validation.getInteger("[1] Change name\n"
 			+ "[2] Add course\n"
 			+ "[3] Update Course\n"
 			+ "[4] Remove Course\n"
@@ -108,10 +108,10 @@ public class StudentCourseController {
 				addCourse(student);
 				break;
 			case 3:
-				removeCourse(student);
+				updateCourse(student);
 				break;
 			case 4:
-				updateCourse(student);
+				removeCourse(student);
 				break;
 		}
 	}
@@ -144,7 +144,7 @@ public class StudentCourseController {
 			mess += i + " | " + courses.get(i) + "\n";
 		}
 		mess += "Your choice: ";
-		Course oldCourse = courses.get(Validation.getInteger(mess, 0, courses.size()) - 1);
+		Course oldCourse = courses.get(Validation.getInteger(mess, 0, courses.size() - 1));
 		Course newCourse = courseInputer.inputCourse();
 		courseManager.update(oldCourse, newCourse);
 	}

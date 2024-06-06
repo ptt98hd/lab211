@@ -29,7 +29,7 @@ public class CourseManager {
 //	GETTER + SETTER
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public ArrayList<Course> getCourses() {
-		return courses;
+		return sortById(courses);
 	}
 
 	public ArrayList<Course> getCourses(Student student) {
@@ -39,7 +39,7 @@ public class CourseManager {
 				results.add(course);
 			}
 		}
-		return results;
+		return sortByCourse(results);
 	}
 
 	public void setCourses(ArrayList<Course> courses) {
@@ -90,7 +90,24 @@ public class CourseManager {
 				results.add(course);
 			}
 		}
-		return results;
+		return sortByName(courses);
+	}
+
+//	SORT
+//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	private ArrayList<Course> sortByName(ArrayList<Course> courses) {
+		courses.sort((o1, o2) -> o1.getStudent().getName().compareToIgnoreCase(o2.getStudent().getName()));
+		return courses;
+	}
+
+	private ArrayList<Course> sortById(ArrayList<Course> courses) {
+		courses.sort((o1, o2) -> o1.getStudent().getId() - o2.getStudent().getId());
+		return courses;
+	}
+
+	private ArrayList<Course> sortByCourse(ArrayList<Course> courses) {
+		courses.sort((o1, o2) -> o1.getCourseName().toString().compareToIgnoreCase(o2.getCourseName().toString()));
+		return courses;
 	}
 
 //	OTHERS
