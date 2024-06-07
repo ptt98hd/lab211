@@ -15,7 +15,7 @@ import utils.Validation;
  */
 public class Main {
 
-	private static String menu = "FRUIT SHOP SYSTEM\n"
+	private static final String menu = "FRUIT SHOP SYSTEM\n"
 		+ "1. Create Fruit\n"
 		+ "2. View orders\n"
 		+ "3. Shopping (for buyer)\n"
@@ -52,13 +52,12 @@ public class Main {
 	}
 
 	private static String getData(ArrayList<FruitProduct> fruitProducts) {
-		String format = "| %-4s | %-16s | % -12s | %-11f |";
-		String data = String.format(format, "Item", "Fruit Name", "Origin", "Price");
+		String format = "| %-4s | %-16s | % -12s | %-11s |";
+		String data = String.format(format, "Item", "Fruit Name", "Origin", "Price") + "\n";
 		for (int i = 0; i < fruitProducts.size(); i++) {
 			FruitProduct fruit = fruitProducts.get(i);
-			int item = i + 1;
 			data += String.format(format,
-				item, fruit.getName(), fruit.getOrigin(), fruit.getPrice());
+				i + 1, fruit.getName(), fruit.getOrigin(), fruit.getPrice());
 		}
 		return data;
 	}
