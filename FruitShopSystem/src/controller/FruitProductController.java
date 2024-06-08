@@ -16,8 +16,8 @@ import utils.Validation;
  */
 public class FruitProductController {
 
-	private FruitProductInputer fruitProductInputer;
-	private FruitProductManager fruitProductManager;
+	private final FruitProductInputer fruitProductInputer;
+	private final FruitProductManager fruitProductManager;
 
 	public FruitProductController() {
 		fruitProductInputer = new FruitProductInputer();

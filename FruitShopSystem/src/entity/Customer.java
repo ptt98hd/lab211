@@ -8,21 +8,17 @@ package entity;
  *
  * @author ow3n
  */
-public class FruitProduct {
+public class Customer {
 
 	private int id;
 	private String name;
-	private String origin;
-	private double price;
 
-	public FruitProduct() {
+	public Customer() {
 	}
 
-	public FruitProduct(int id, String name, String origin, double price) {
+	public Customer(int id, String name) {
 		this.id = id;
 		this.name = name;
-		this.origin = origin;
-		this.price = price;
 	}
 
 	public int getId() {
@@ -39,21 +35,5 @@ public class FruitProduct {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 }
