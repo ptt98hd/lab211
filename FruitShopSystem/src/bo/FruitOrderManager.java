@@ -6,7 +6,6 @@ package bo;
 
 import entity.FruitOrder;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 /**
  *
@@ -20,4 +19,30 @@ public class FruitOrderManager {
 		fruitOders = new ArrayList<>();
 	}
 
+	public ArrayList<FruitOrder> getFruitOders() {
+		return fruitOders;
+	}
+
+	public void add(FruitOrder newFruitOrder) {
+		if (this.contains(newFruitOrder)) {
+			int index = getIndex(newFruitOrder);
+			int newQuantity = fruitOders.get(index).getQuantity() + newFruitOrder.getQuantity();
+			fruitOders.get(index).setQuantity(newQuantity);
+		} else {
+			fruitOders.add(newFruitOrder);
+		}
+	}
+
+	public int getIndex(FruitOrder fruitOrder) {
+		for (int i = 0; i < fruitOders.size(); i++) {
+			if (fruitOders.get(i).equals(fruitOrder)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public boolean contains(FruitOrder fruitOrder) {
+		return fruitOders.contains(fruitOrder);
+	}
 }

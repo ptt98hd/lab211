@@ -10,13 +10,11 @@ package entity;
  */
 public class FruitOrder extends FruitProduct {
 
-	private String customer;
 	private int quantity;
 
-	public FruitOrder(FruitOrder fruitOrder, int quantity, String customer) {
+	public FruitOrder(FruitOrder fruitOrder, int quantity) {
 		super(fruitOrder.getId(), fruitOrder.getName(), fruitOrder.getOrigin(), fruitOrder.getPrice());
 		this.quantity = quantity;
-		this.customer = customer;
 	}
 
 	public FruitOrder() {
@@ -33,13 +31,5 @@ public class FruitOrder extends FruitProduct {
 
 	public double getAmount() {
 		return getPrice() * quantity;
-	}
-
-	public String getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(String customer) {
-		this.customer = customer;
 	}
 }

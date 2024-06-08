@@ -10,23 +10,23 @@ package entity;
  */
 public class Customer {
 
-	private int id;
+	private int orderId;
 	private String name;
 
 	public Customer() {
 	}
 
-	public Customer(int id, String name) {
-		this.id = id;
+	public Customer(int orderId, String name) {
+		this.orderId = orderId;
 		this.name = name;
 	}
 
-	public int getId() {
-		return id;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getName() {

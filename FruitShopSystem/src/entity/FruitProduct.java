@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.util.Objects;
+
 /**
  *
  * @author ow3n
@@ -55,5 +57,39 @@ public class FruitProduct {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 23 * hash + this.id;
+		hash = 23 * hash + Objects.hashCode(this.name);
+		hash = 23 * hash + Objects.hashCode(this.origin);
+		hash = 23 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final FruitProduct other = (FruitProduct) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
+			return false;
+		}
+		if (!Objects.equals(this.name, other.name)) {
+			return false;
+		}
+		return Objects.equals(this.origin, other.origin);
 	}
 }
