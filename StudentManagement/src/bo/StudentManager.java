@@ -6,6 +6,7 @@ package bo;
 
 import entity.Student;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  *
@@ -51,12 +52,26 @@ public class StudentManager {
 		return students.add(newStudent);
 	}
 
-	public boolean remove(Student student) {
-		return students.remove(student);
+	public Student remove(int id) throws Exception {
+		ListIterator<Student> studentIterator = students.listIterator();
+		while (studentIterator.hasNext()) {
+			Student student = studentIterator.next();
+			if (student.getId() == id) {
+				studentIterator.remove();
+				return student;
+			}
+		}
+		throw new Exception("Invalid ID!!!");
 	}
 
-	public void update(int index, String newName) {
+	public Student update(int id, String newName) throws Exception {
+		int index = getIndex(id);
+		if (index == -1) {
+			throw new Exception("Invalid ID!!!");
+		}
+		Student student = students.get(index);
 		students.get(index).setName(newName);
+		return student;
 	}
 
 //	SEARCH
@@ -71,8 +86,15 @@ public class StudentManager {
 		return sortByName(results);
 	}
 
+//	SORT
+//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	private ArrayList<Student> sortByName(ArrayList<Student> students) {
 		students.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+		return students;
+	}
+
+	private ArrayList<Student> sortById(ArrayList<Student> students) {
+		students.sort((o1, o2) -> o1.getId() - o2.getId());
 		return students;
 	}
 
@@ -80,19 +102,11 @@ public class StudentManager {
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public int getIndex(int id) {
 		for (int index = 0; index < students.size(); index++) {
-			if (students.get(index).getId() == id) {
+			Student student = students.get(index);
+			if (student.getId() == id) {
 				return index;
 			}
 		}
 		return -1;
-	}
-
-	public Student getStudent(int id) {
-		for (Student student : students) {
-			if (student.getId() == id) {
-				return student;
-			}
-		}
-		return null;
 	}
 }

@@ -54,34 +54,4 @@ public class Course {
 		String format = "%-5s | %-5s";
 		return student.toString() + String.format(format, semester, courseName);
 	}
-
-	@Override
-	public int hashCode() {
-		int hash = 7;
-		hash = 97 * hash + Objects.hashCode(this.student);
-		hash = 97 * hash + this.semester;
-		hash = 97 * hash + Objects.hashCode(this.courseName);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Course other = (Course) obj;
-		if (this.semester != other.semester) {
-			return false;
-		}
-		if (!Objects.equals(this.student, other.student)) {
-			return false;
-		}
-		return this.courseName == other.courseName;
-	}
 }

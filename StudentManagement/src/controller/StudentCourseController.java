@@ -63,9 +63,9 @@ public class StudentCourseController {
 		HashMap<String, Integer> reports = new HashMap<>();
 		for (Course course : courseManager.getCourses()) {
 			String key = String.format(keyFormat,
-				course.getStudent().getId(),
-				course.getStudent().getName(),
-				course.getCourseName().toString());
+					course.getStudent().getId(),
+					course.getStudent().getName(),
+					course.getCourseName().toString());
 			if (reports.containsKey(key)) {
 				int amount = reports.get(key);
 				reports.replace(key, ++amount);
@@ -76,30 +76,18 @@ public class StudentCourseController {
 		return reports;
 	}
 
-	public void updateOrDelete() throws Exception {
-		int id = Validation.getInteger("Enter student's id: ", 1, Integer.MAX_VALUE);
-		Student student = studentManager.getStudent(id);
-		if (student == null) {
-			throw new Exception("Invalid ID!!!");
-		}
-		if (Validation.getChoice("Update or Delete? [U/D]: ", "u", "d")) {
-			updateStudent(student);
-		} else {
-			deleteStudent(student);
-		}
-	}
-
-	private void deleteStudent(Student student) {
-		courseManager.remove(student);
-//		studentManager.remove(student);
+	public ArrayList<Course> deleteStudent() throws Exception {
+		int id = Validation.getInteger("Enter student's ID: ", 1, Integer.MAX_VALUE);
+		studentManager.remove(id);
+		return courseManager.remove(id);
 	}
 
 	private void updateStudent(Student student) throws Exception {
 		int choice = Validation.getInteger("[1] Change name\n"
-			+ "[2] Add course\n"
-			+ "[3] Update Course\n"
-			+ "[4] Remove Course\n"
-			+ "Your choice: ", 1, 4);
+				+ "[2] Add course\n"
+				+ "[3] Update Course\n"
+				+ "[4] Remove Course\n"
+				+ "Your choice: ", 1, 4);
 		switch (choice) {
 			case 1:
 				updateName(student);

@@ -21,14 +21,18 @@ public class Main {
 			+ "[2] Find and Sort\n"
 			+ "[3] Update/Delete\n"
 			+ "[4] Report\n"
-			+ "[5] Exit\n"
+			+ "[5] Delete student\n"
+			+ "[6] Update student\n"
+			+ "[8] Get all Students\n"
+			+ "[9] Get all Courses\n"
+			+ "[0] Exit\n"
 			+ "Your choice: ";
 
 	public static void main(String[] args) {
 		StudentCourseController studentCourseController = new StudentCourseController();
 		while (true) {
 			try {
-				int choice = Validation.getInteger(MENU, 0, 5);
+				int choice = Validation.getInteger(MENU, 0, 9);
 				switch (choice) {
 					case 0:
 						return;
@@ -38,20 +42,29 @@ public class Main {
 					case 2:
 						System.out.println(getData(studentCourseController.findByName()));
 						break;
-					case 3:
-						studentCourseController.updateOrDelete();
-						break;
+//					case 3:
+//						studentCourseController.updateOrDelete();
+//						break;
 					case 4:
 						System.out.println(getData(studentCourseController.getReports()));
 						break;
 					case 5:
-						System.out.println(getData(studentCourseController.getAllCourses()));
+						System.out.println(getData(studentCourseController.deleteStudent()));
 						break;
 					case 6:
+
+						break;
+					case 7:
+
+						break;
+					case 8:
+						System.out.println(getData(studentCourseController.getAllStudents()));
+						break;
+					case 9:
 						System.out.println(getData(studentCourseController.getAllCourses()));
 						break;
 					default:
-						throw new Exception("Invalid choice!!!");
+						System.err.println("Function is not created!!!");
 				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
@@ -59,18 +72,23 @@ public class Main {
 		}
 	}
 
-	public static String getData(ArrayList<Course> courses) {
+	public static <Type> String getData(ArrayList<Type> list) {
 		String data = "";
-		for (Course course : courses) {
-			data += course.toString() + "\n";
+		for (Type item : list) {
+			data += item.toString() + "\n";
 		}
 		return data;
 	}
 
-	public static String getData(HashMap<String, Integer> reports) {
+	public static <Type> String getData(Type item) {
+		String data = item.toString();
+		return data;
+	}
+
+	public static <Key, Value> String getData(HashMap<Key, Value> map) {
 		String data = "";
-		for (String key : reports.keySet()) {
-			data += key + reports.get(key) + "\n";
+		for (Key key : map.keySet()) {
+			data += key + map.get(key).toString() + "\n";
 		}
 		return data;
 	}

@@ -7,6 +7,7 @@ package bo;
 import entity.Course;
 import entity.Student;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  *
@@ -55,12 +56,14 @@ public class CourseManager {
 		return courses.add(newCourse);
 	}
 
-	public ArrayList<Course> remove(Student student) {
+	public ArrayList<Course> remove(int studentId) {
 		ArrayList<Course> removed = new ArrayList<>();
-		for (Course course : courses) {
-			if (course.getStudent().equals(student)) {
+		ListIterator<Course> courseIterator = courses.listIterator();
+		while (courseIterator.hasNext()) {
+			Course course = courseIterator.next();
+			if (course.getStudent().getId() == studentId) {
 				removed.add(course);
-				courses.remove(course);
+				courseIterator.remove();
 			}
 		}
 		return removed;
