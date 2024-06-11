@@ -26,8 +26,9 @@ public class FruitOrderManager {
 	public void add(FruitOrder newFruitOrder) {
 		if (this.contains(newFruitOrder)) {
 			int index = getIndex(newFruitOrder);
-			int newQuantity = fruitOders.get(index).getQuantity() + newFruitOrder.getQuantity();
-			fruitOders.get(index).setQuantity(newQuantity);
+			FruitOrder fruitOrder = fruitOders.get(index);
+			int newQuantity = fruitOrder.getQuantity() + newFruitOrder.getQuantity();
+			fruitOrder.setQuantity(newQuantity);
 		} else {
 			fruitOders.add(newFruitOrder);
 		}

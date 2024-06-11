@@ -13,5 +13,12 @@ import java.util.Hashtable;
  */
 public class CustomerFruitOrderManager {
 
-	Hashtable<Customer, FruitOrderManager> customerFruitOrders;
+	private Hashtable<Customer, FruitOrderManager> customerFruitOrders;
+	private int currentId;
+
+	public CustomerFruitOrderManager() {
+		customerFruitOrders = new Hashtable<>();
+		currentId = 0;
+	}
+
 }

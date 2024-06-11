@@ -17,12 +17,12 @@ import utils.Validation;
 public class Main {
 
 	private static final String MENU = "\nWELCOME TO STUDENT MANAGEMENT\n"
-		+ "[1] Create\n"
-		+ "[2] Find and Sort\n"
-		+ "[3] Update/Delete\n"
-		+ "[4] Report\n"
-		+ "[5] Exit\n"
-		+ "Your choice: ";
+			+ "[1] Create\n"
+			+ "[2] Find and Sort\n"
+			+ "[3] Update/Delete\n"
+			+ "[4] Report\n"
+			+ "[5] Exit\n"
+			+ "Your choice: ";
 
 	public static void main(String[] args) {
 		StudentCourseController studentCourseController = new StudentCourseController();
@@ -31,8 +31,7 @@ public class Main {
 				int choice = Validation.getInteger(MENU, 0, 5);
 				switch (choice) {
 					case 0:
-						System.out.println(getData(studentCourseController.getAllCourses()));
-						break;
+						return;
 					case 1:
 						System.out.println(getData(studentCourseController.createStudents()));
 						break;
@@ -46,7 +45,11 @@ public class Main {
 						System.out.println(getData(studentCourseController.getReports()));
 						break;
 					case 5:
-						return;
+						System.out.println(getData(studentCourseController.getAllCourses()));
+						break;
+					case 6:
+						System.out.println(getData(studentCourseController.getAllCourses()));
+						break;
 					default:
 						throw new Exception("Invalid choice!!!");
 				}
