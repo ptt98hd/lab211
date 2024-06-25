@@ -33,11 +33,11 @@ public class StudentCourseController {
 	}
 
 	public ArrayList<Student> getAllStudents() {
-		return studentManager.getStudents();
+		return studentManager.getAllStudents();
 	}
 
 	public ArrayList<Course> getAllCourses() {
-		return courseManager.getCourses();
+		return courseManager.getAllCourses();
 	}
 
 	public ArrayList<Course> createStudents() throws Exception {
@@ -61,7 +61,7 @@ public class StudentCourseController {
 	public HashMap<String, Integer> getReports() {
 		String keyFormat = "%-5s | %-20s | %-5s | ";
 		HashMap<String, Integer> reports = new HashMap<>();
-		for (Course course : courseManager.getCourses()) {
+		for (Course course : courseManager.getAllCourses()) {
 			String key = String.format(keyFormat,
 					course.getStudent().getId(),
 					course.getStudent().getName(),

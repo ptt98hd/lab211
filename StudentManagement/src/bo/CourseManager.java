@@ -7,7 +7,6 @@ package bo;
 import entity.Course;
 import entity.Student;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 /**
  *
@@ -23,14 +22,10 @@ public class CourseManager {
 		courses = new ArrayList<>();
 	}
 
-	public CourseManager(ArrayList<Course> courses) {
-		this.courses = courses;
-	}
-
-//	GETTER + SETTER
+//	GETTER
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
-	public ArrayList<Course> getCourses() {
-		return sortById(courses);
+	public ArrayList<Course> getAllCourses() {
+		return courses;
 	}
 
 	public ArrayList<Course> getCourses(Student student) {
@@ -40,14 +35,10 @@ public class CourseManager {
 				results.add(course);
 			}
 		}
-		return sortByCourse(results);
+		return results;
 	}
 
-	public void setCourses(ArrayList<Course> courses) {
-		this.courses = courses;
-	}
-
-//	ADD + UPDATE + REMOVE
+//	CRUD
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public boolean add(Course newCourse) throws Exception {
 		if (courses.contains(newCourse)) {
@@ -56,35 +47,14 @@ public class CourseManager {
 		return courses.add(newCourse);
 	}
 
-	public ArrayList<Course> remove(int studentId) {
-		ArrayList<Course> removed = new ArrayList<>();
-		ListIterator<Course> courseIterator = courses.listIterator();
-		while (courseIterator.hasNext()) {
-			Course course = courseIterator.next();
-			if (course.getStudent().getId() == studentId) {
-				removed.add(course);
-				courseIterator.remove();
-			}
-		}
-		return removed;
-	}
-
 	public boolean remove(Course course) throws Exception {
-		if (!contains(course)) {
+		if (!courses.contains(course)) {
 			throw new Exception("Course does not exits!!!");
 		}
 		return courses.remove(course);
 	}
 
-	public Course update(Course oldCourse, Course newCourse) throws Exception {
-		int index = getIndex(oldCourse);
-		if (index == -1) {
-			throw new Exception("Invalid course!!!");
-		}
-		return courses.set(index, newCourse);
-	}
-
-//	SEARCH
+//	SEARCH & SORT
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public ArrayList<Course> searchByStudentName(String name) {
 		ArrayList<Course> results = new ArrayList<>();
@@ -96,35 +66,8 @@ public class CourseManager {
 		return sortByName(courses);
 	}
 
-//	SORT
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	private ArrayList<Course> sortByName(ArrayList<Course> courses) {
 		courses.sort((o1, o2) -> o1.getStudent().getName().compareToIgnoreCase(o2.getStudent().getName()));
 		return courses;
-	}
-
-	private ArrayList<Course> sortById(ArrayList<Course> courses) {
-		courses.sort((o1, o2) -> o1.getStudent().getId() - o2.getStudent().getId());
-		return courses;
-	}
-
-	private ArrayList<Course> sortByCourse(ArrayList<Course> courses) {
-		courses.sort((o1, o2) -> o1.getCourseName().toString().compareToIgnoreCase(o2.getCourseName().toString()));
-		return courses;
-	}
-
-//	OTHERS
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
-	public int getIndex(Course course) {
-		for (int index = 0; index < courses.size(); index++) {
-			if (courses.get(index).equals(course)) {
-				return index;
-			}
-		}
-		return -1;
-	}
-
-	public boolean contains(Course course) {
-		return courses.contains(course);
 	}
 }

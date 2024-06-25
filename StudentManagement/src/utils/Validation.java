@@ -27,8 +27,8 @@ public class Validation {
 	}
 
 	public static int getInteger(String message, int min, int max) {
-		String regex = "[0-9]+";
-		String errorOutOfRange = "Only accept number in range [" + min + "-" + max + "]!!!";
+		String regex = "[+-]?[0-9]+";
+		String errorOutOfRange = "Input number must in range [" + min + "-" + max + "]!!!";
 		String errorNumberFormat = "Please input an integer number!!!";
 		do {
 			int input = Integer.parseInt(getString(message, errorNumberFormat, regex));

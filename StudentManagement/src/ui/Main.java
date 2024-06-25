@@ -5,7 +5,6 @@
 package ui;
 
 import controller.StudentCourseController;
-import entity.Course;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utils.Validation;
@@ -17,22 +16,21 @@ import utils.Validation;
 public class Main {
 
 	private static final String MENU = "\nWELCOME TO STUDENT MANAGEMENT\n"
-			+ "[1] Create\n"
-			+ "[2] Find and Sort\n"
-			+ "[3] Update/Delete\n"
-			+ "[4] Report\n"
-			+ "[5] Delete student\n"
-			+ "[6] Update student\n"
-			+ "[8] Get all Students\n"
-			+ "[9] Get all Courses\n"
-			+ "[0] Exit\n"
-			+ "Your choice: ";
+		+ "[1] Create\n"
+		+ "[2] Find and Sort\n"
+		+ "[3] Update or Delete\n"
+		+ "[4] Report\n"
+		+ "[5] Add Course\n"
+		+ "[6] Get all Students\n"
+		+ "[7] Get all Courses\n"
+		+ "[0] Exit\n"
+		+ "Your choice: ";
 
 	public static void main(String[] args) {
 		StudentCourseController studentCourseController = new StudentCourseController();
 		while (true) {
 			try {
-				int choice = Validation.getInteger(MENU, 0, 9);
+				int choice = Validation.getInteger(MENU, 0, 7);
 				switch (choice) {
 					case 0:
 						return;
@@ -42,9 +40,9 @@ public class Main {
 					case 2:
 						System.out.println(getData(studentCourseController.findByName()));
 						break;
-//					case 3:
+					case 3:
 //						studentCourseController.updateOrDelete();
-//						break;
+						break;
 					case 4:
 						System.out.println(getData(studentCourseController.getReports()));
 						break;
@@ -52,15 +50,9 @@ public class Main {
 						System.out.println(getData(studentCourseController.deleteStudent()));
 						break;
 					case 6:
-
-						break;
-					case 7:
-
-						break;
-					case 8:
 						System.out.println(getData(studentCourseController.getAllStudents()));
 						break;
-					case 9:
+					case 7:
 						System.out.println(getData(studentCourseController.getAllCourses()));
 						break;
 					default:
