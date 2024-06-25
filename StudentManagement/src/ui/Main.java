@@ -41,13 +41,13 @@ public class Main {
 						System.out.println(getData(studentCourseController.findByName()));
 						break;
 					case 3:
-//						studentCourseController.updateOrDelete();
+						System.out.println(studentCourseController.updateOrDelete());
 						break;
 					case 4:
 						System.out.println(getData(studentCourseController.getReports()));
 						break;
 					case 5:
-						System.out.println(getData(studentCourseController.deleteStudent()));
+						System.out.println(getData(studentCourseController.addCourse()));
 						break;
 					case 6:
 						System.out.println(getData(studentCourseController.getAllStudents()));

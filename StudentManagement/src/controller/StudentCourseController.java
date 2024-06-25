@@ -59,81 +59,48 @@ public class StudentCourseController {
 	}
 
 	public HashMap<String, Integer> getReports() {
-		String keyFormat = "%-5s | %-20s | %-5s | ";
-		HashMap<String, Integer> reports = new HashMap<>();
-		for (Course course : courseManager.getAllCourses()) {
-			String key = String.format(keyFormat,
-					course.getStudent().getId(),
-					course.getStudent().getName(),
-					course.getCourseName().toString());
-			if (reports.containsKey(key)) {
-				int amount = reports.get(key);
-				reports.replace(key, ++amount);
-			} else {
-				reports.put(key, 1);
-			}
-		}
-		return reports;
+		return courseManager.getReports();
 	}
 
-	public ArrayList<Course> deleteStudent() throws Exception {
-		int id = Validation.getInteger("Enter student's ID: ", 1, Integer.MAX_VALUE);
-		studentManager.remove(id);
-		return courseManager.remove(id);
-	}
-
-	private void updateStudent(Student student) throws Exception {
-		int choice = Validation.getInteger("[1] Change name\n"
-				+ "[2] Add course\n"
-				+ "[3] Update Course\n"
-				+ "[4] Remove Course\n"
-				+ "Your choice: ", 1, 4);
-		switch (choice) {
-			case 1:
-				updateName(student);
-				break;
-			case 2:
-				addCourse(student);
-				break;
-			case 3:
-				updateCourse(student);
-				break;
-			case 4:
-				removeCourse(student);
-				break;
-		}
-	}
-
-	private void updateName(Student student) {
-		student.setName(Validation.getAlphabetic("Enter new name: "));
-	}
-
-	private void addCourse(Student student) throws Exception {
+	public Course addCourse() throws Exception {
+		int studentId = Validation.getInteger("Student ID: ", 1, Integer.MAX_VALUE);
+		Student student = studentManager.getStudent(studentId);
 		Course newCourse = courseInputer.inputCourse();
 		newCourse.setStudent(student);
 		courseManager.add(newCourse);
+		return newCourse;
 	}
 
-	private void removeCourse(Student student) throws Exception {
-		ArrayList<Course> courses = courseManager.getCourses(student);
-		String mess = "";
-		for (int i = 0; i < courses.size(); i++) {
-			mess += i + " | " + courses.get(i) + "\n";
+	public Course updateOrDelete() throws Exception {
+		int studentId = Validation.getInteger("Enter ID: ", 1, Integer.MAX_VALUE);
+		boolean updateOrDelete = Validation.getChoice("Update or Delete? [u/d]?", "u", "d");
+		Course course = chooseCourse(courseManager.getCourses(studentId));
+		if (updateOrDelete) {
+			return update(studentId, course);
+		} else {
+			return delete(course);
 		}
-		mess += "Your choice: ";
-		Course course = courses.get(Validation.getInteger(mess, 0, courses.size() - 1));
-		courseManager.remove(course);
 	}
 
-	private void updateCourse(Student student) throws Exception {
-		ArrayList<Course> courses = courseManager.getCourses(student);
-		String mess = "";
-		for (int i = 0; i < courses.size(); i++) {
-			mess += i + " | " + courses.get(i) + "\n";
-		}
-		mess += "Your choice: ";
-		Course oldCourse = courses.get(Validation.getInteger(mess, 0, courses.size() - 1));
+	private Course update(int studentId, Course oldCourse) throws Exception {
+		String newName = Validation.getAlphabetic("New name: ");
 		Course newCourse = courseInputer.inputCourse();
-		courseManager.update(oldCourse, newCourse);
+		studentManager.update(studentId, newName);
+		return courseManager.update(oldCourse, newCourse);
+	}
+
+	private Course delete(Course course) throws Exception {
+		courseManager.remove(course);
+		return course;
+	}
+
+	private Course chooseCourse(ArrayList<Course> courses) {
+		String data = "";
+		for (int i = 0; i < courses.size(); i++) {
+			data += i + " | " + courses.get(i).toString() + "\n";
+		}
+		data += "Your choice: ";
+		int index = Validation.getInteger(data, 0, courses.size() - 1);
+		return courses.get(index);
 	}
 }

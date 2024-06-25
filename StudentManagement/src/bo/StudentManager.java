@@ -29,13 +29,13 @@ public class StudentManager {
 		return students;
 	}
 
-	private Student getStudent(int id) {
+	public Student getStudent(int id) throws Exception {
 		for (Student student : students) {
 			if (student.getId() == id) {
 				return student;
 			}
 		}
-		return null;
+		throw new Exception("Invalid ID!!!");
 	}
 
 //	CRUD
@@ -50,9 +50,6 @@ public class StudentManager {
 
 	public Student remove(int id) throws Exception {
 		Student student = getStudent(id);
-		if (student == null) {
-			throw new Exception("Invalid ID!!!");
-		}
 		if (students.remove(student)) {
 			return student;
 		}
@@ -61,9 +58,6 @@ public class StudentManager {
 
 	public Student update(int id, String newName) throws Exception {
 		Student student = getStudent(id);
-		if (student == null) {
-			throw new Exception("Invalid ID!!!");
-		}
 		student.setName(newName);
 		return student;
 	}

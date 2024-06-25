@@ -5,8 +5,8 @@
 package bo;
 
 import entity.Course;
-import entity.Student;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -28,17 +28,17 @@ public class CourseManager {
 		return courses;
 	}
 
-	public ArrayList<Course> getCourses(Student student) {
+	public ArrayList<Course> getCourses(int studentId) {
 		ArrayList<Course> results = new ArrayList<>();
 		for (Course course : courses) {
-			if (course.getStudent().equals(student)) {
+			if (course.getStudent().getId() == studentId) {
 				results.add(course);
 			}
 		}
 		return results;
 	}
 
-//	CRUD
+//	C.R.U.D
 //	== == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public boolean add(Course newCourse) throws Exception {
 		if (courses.contains(newCourse)) {
@@ -52,6 +52,14 @@ public class CourseManager {
 			throw new Exception("Course does not exits!!!");
 		}
 		return courses.remove(course);
+	}
+
+	public Course update(Course oldCourse, Course newCourse) throws Exception {
+		int index = courses.indexOf(oldCourse);
+		if (index == -1) {
+			throw new Exception("Invalid old course!!!");
+		}
+		return courses.set(index, newCourse);
 	}
 
 //	SEARCH & SORT
@@ -69,5 +77,24 @@ public class CourseManager {
 	private ArrayList<Course> sortByName(ArrayList<Course> courses) {
 		courses.sort((o1, o2) -> o1.getStudent().getName().compareToIgnoreCase(o2.getStudent().getName()));
 		return courses;
+	}
+
+//	REPORT
+//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	public HashMap<String, Integer> getReports() {
+		String keyFormat = "%-20s | %-5s | ";
+		HashMap<String, Integer> reports = new HashMap<>();
+		for (Course course : courses) {
+			String key = String.format(keyFormat,
+				course.getStudent().getName(),
+				course.getCourseName().toString());
+			if (reports.containsKey(key)) {
+				int amount = reports.get(key);
+				reports.replace(key, ++amount);
+			} else {
+				reports.put(key, 1);
+			}
+		}
+		return reports;
 	}
 }
