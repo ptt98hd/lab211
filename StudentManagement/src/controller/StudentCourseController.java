@@ -73,23 +73,23 @@ public class StudentCourseController {
 
 	public Course updateOrDelete() throws Exception {
 		int studentId = Validation.getInteger("Enter ID: ", 1, Integer.MAX_VALUE);
-		boolean updateOrDelete = Validation.getChoice("Update or Delete? [u/d]?", "u", "d");
-		Course course = chooseCourse(courseManager.getCourses(studentId));
-		if (updateOrDelete) {
-			return update(studentId, course);
+		if (Validation.getChoice("Update or Delete? [u/d]?", "u", "d")) {
+			return update(studentId);
 		} else {
-			return delete(course);
+			return delete(studentId);
 		}
 	}
 
-	private Course update(int studentId, Course oldCourse) throws Exception {
+	private Course update(int studentId) throws Exception {
 		String newName = Validation.getAlphabetic("New name: ");
-		Course newCourse = courseInputer.inputCourse();
 		studentManager.update(studentId, newName);
+		Course oldCourse = chooseCourse(courseManager.getCourses(studentId));
+		Course newCourse = courseInputer.inputCourse();
 		return courseManager.update(oldCourse, newCourse);
 	}
 
-	private Course delete(Course course) throws Exception {
+	private Course delete(int studentId) throws Exception {
+		Course course = chooseCourse(courseManager.getCourses(studentId));
 		courseManager.remove(course);
 		return course;
 	}

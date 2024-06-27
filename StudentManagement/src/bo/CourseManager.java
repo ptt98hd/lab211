@@ -16,14 +16,14 @@ public class CourseManager {
 
 	private ArrayList<Course> courses;
 
-//	CONSTRUCTOR
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	// CONSTRUCTOR
+	// == == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public CourseManager() {
 		courses = new ArrayList<>();
 	}
 
-//	GETTER
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	// GETTER
+	// == == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public ArrayList<Course> getAllCourses() {
 		return courses;
 	}
@@ -38,8 +38,8 @@ public class CourseManager {
 		return results;
 	}
 
-//	C.R.U.D
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	// C.R.U.D
+	// == == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public boolean add(Course newCourse) throws Exception {
 		if (courses.contains(newCourse)) {
 			throw new Exception("Course already exists!!!");
@@ -62,8 +62,8 @@ public class CourseManager {
 		return courses.set(index, newCourse);
 	}
 
-//	SEARCH & SORT
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	// SEARCH & SORT
+	// == == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public ArrayList<Course> searchByStudentName(String name) {
 		ArrayList<Course> results = new ArrayList<>();
 		for (Course course : courses) {
@@ -71,7 +71,7 @@ public class CourseManager {
 				results.add(course);
 			}
 		}
-		return sortByName(courses);
+		return sortByName(results);
 	}
 
 	private ArrayList<Course> sortByName(ArrayList<Course> courses) {
@@ -79,15 +79,15 @@ public class CourseManager {
 		return courses;
 	}
 
-//	REPORT
-//	== == == == == == == == == == == == == == == == == == == == == == == == == ==
+	// REPORT
+	// == == == == == == == == == == == == == == == == == == == == == == == == == ==
 	public HashMap<String, Integer> getReports() {
 		String keyFormat = "%-20s | %-5s | ";
 		HashMap<String, Integer> reports = new HashMap<>();
 		for (Course course : courses) {
 			String key = String.format(keyFormat,
-				course.getStudent().getName(),
-				course.getCourseName().toString());
+					course.getStudent().getName(),
+					course.getCourseName().toString());
 			if (reports.containsKey(key)) {
 				int amount = reports.get(key);
 				reports.replace(key, ++amount);
